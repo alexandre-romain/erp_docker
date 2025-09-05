@@ -1,0 +1,25 @@
+# Normalise tous les textes en LF dans le repo, conversion côté Windows transparente
+* text=auto eol=lf
+
+# Traite certains binaires comme binaires (pas de normalisation)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.zip binary
+*.7z binary
+
+# Scripts qui doivent strictement rester en LF (Docker/Unix)
+*.sh text eol=lf
+Dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+
+# Windows scripts : facultatif de forcer CRLF si besoin
+*.ps1 text
+*.bat text

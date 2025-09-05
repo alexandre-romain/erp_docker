@@ -1,0 +1,10 @@
+{
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "editor.renderWhitespace": "boundary",
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.enableSmartCommit": true
+}
