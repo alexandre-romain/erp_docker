@@ -1,0 +1,4 @@
+CREATE DATABASE gestion;
+CREATE USER 'user'@'%' IDENTIFIED BY 'userpass01';
+GRANT ALL PRIVILEGES ON gestion.* TO 'user'@'%';
+FLUSH PRIVILEGES;

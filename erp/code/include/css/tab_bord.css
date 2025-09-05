@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* CSS Document */
+
+table.widget {
+	float:left;
+	/*border-collapse:collapse;*/
+	width:40%;
+	margin:1% 5% 1% 5%;
+	border-spacing:0;
+	border:10px solid #999;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	border-radius:5px;
+}
+
+tr {
+	background-color:transparent;
+}
+
+table.widget td,th {
+	border:1px solid #999;
+	color:FFF;
+}
+
+th.titre {
+	height:40px;
+	font-size:18px;
+	vertical-align:middle;
+	/*background:url(../img/escheresque_ste.png);*/
+	background:#222;
+	border:0;
+	border-bottom:5px solid #999;
+	color:#00bce4;
+}
+
+th.soustitre {
+	height:30px;
+	font-size:12px;
+	vertical-align:middle;
+	background:url(../img/escheresque_ste.png);
+	border:0;
+	border-bottom:5px solid #999;
+	color:#00bce4;
+}
+
+td.retard {
+	background:url(../img/escheresque_ste_red.png);
+	
+}
+
+td.ok {
+	background:url(../img/escheresque_ste.png);
+}
+
+a.link {
+	color:#999;
+}
+
+a.link:link {
+	text-decoration:none;
+}
+
+a.link:hover {
+	color:#FFF;
+}
+
+input[type=submit].fact {
+	background-color:#00bce4;
+	border-radius:5px;
+	border:0;
+	color:#FFF;
+	font-weight:bold;
+	padding:1px;
+	cursor:pointer;
+}
+
+button.purge {
+	background-color:#00bce4;
+	border-radius:5px;
+	border:0;
+	color:#FFF;
+	font-weight:bold;
+	padding:1px;
+	cursor:pointer;
+}

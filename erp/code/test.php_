@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<?
+$PA = '15';
+
+if ((!$PV)&&($marge == '0'))
+{ $prix_article = $PA; }
+
+if ((!$PV)&&($marge != '0'))
+{ $prix_article = (($marge / 100) + 1) * $PA; }
+
+if (isset($PV)) { $prix_article = $PV;}
+
+?>
+<? echo $prix_article." &euro;"; ?>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    # Pour utiliser DHCP, il est recommandé de supprimer ces ports et d'ajouter: network_mode: "host"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      #- "67:67/udp" # Uniquement requis si vous utilisez Pi-hole comme serveur DHCP
+      - "80:80/tcp"
+    environment:
+      TZ: 'Europe/Brussels'
+      WEBPASSWORD: 'GetinPIH$99'
+    # Les volumes stockent vos donnees entre les mises à jour du conteneur
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN # Requis si vous utilisez Pi-hole comme serveur DHCP, sinon non nécessaire
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "9443:9443"
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  erp:
+    container_name: erp
+    build:
+      context: ./erp
+    ports:
+      - "8080:80" # Serveur PHP et PHPMyAdmin accessibles via ce port
+    volumes:
+      - /home/user/erp/code:/var/www/html # Montage du dossier ERP depuis le host
+    environment:
+      MYSQL_ROOT_PASSWORD: 'GetinDOC$99'
+      MYSQL_DATABASE: gestion
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 'GetinDOC$01'
+    restart: unless-stopped
+
+volumes:
+  portainer_data:

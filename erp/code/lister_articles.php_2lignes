@@ -1,0 +1,141 @@
+<?php 
+require_once("include/verif.php");
+include_once("include/config/common.php");
+include_once("include/config/var.php");
+include_once("include/language/$lang.php");
+include_once("include/utils.php");
+include_once("include/headers.php");?>
+<script type="text/javascript" src="javascripts/confdel.js"></script>
+<?php
+include_once("include/finhead.php");
+include_once("include/configav.php");
+?>
+<table width="760" border="0" class="page" align="center">
+<tr>
+<td class="page" align="center">
+<?php
+include_once("include/head.php");
+?>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;"  >			
+<?php 
+if ($user_art == n) { 
+echo "<h1>$lang_article_droit";
+exit;  
+}
+if ($message !='') { 
+ echo "<table><tr><td>$message</td></tr></table>"; 
+} ?>
+<?php
+$sql = "SELECT * FROM " . $tblpref ."article 
+LEFT JOIN " . $tblpref ."categorie ON " . $tblpref ."categorie.id_cat = " . $tblpref ."article.cat
+WHERE actif != 'non' ";
+if ( isset ( $_GET['ordre'] ) && $_GET['ordre'] != '')
+{
+$sql .= " ORDER BY " . $_GET[ordre] . " ASC";
+}else{
+$sql .= "ORDER BY categorie ASC ";
+}
+$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql2.'<br>'.mysql_error());
+?>
+  <center><table class="boiteaction">	
+
+  <caption><?php echo $lang_articles_liste; ?></caption>
+  <tr> 
+	<th><a href="lister_articles.php?ordre=categorie"><h2>Catégorie</h2></a> 
+    <th><a href="lister_articles.php?ordre=marque"><h2>Marque</h2></a></th>
+	<th><a href="lister_articles.php?ordre=article"><h2>Description</h2></a></th>
+    <th><a href="lister_articles.php?ordre=garantie"><h2>Garantie</h2></a></th>
+    <th><a href="lister_articles.php?ordre=stock"><h2>Stock</h2></a></th>
+    <th><a href="lister_articles.php?ordre=prix_htva"><h2>PA</h2></a></th>
+    <th><a href="lister_articles.php?ordre=marge"><h2>Marge</h2></a></th>
+    <th><a href="lister_articles.php?ordre=commentaire"><h2>Commentaire</h2></a></th>	
+    <th colspan="2" rowspan="2" valign="middle"><h2><?php echo $lang_action; ?></h2></th>
+  </tr>
+  <tr>
+    <th><a href="lister_articles.php?ordre=taux_tva"><h2>TVA</h2></a></th>  
+    <th><a href="lister_articles.php?ordre=recupel"><h2>Recupel (HTVA)</h2></a></th>
+    <th><a href="lister_articles.php?ordre=reprobel"><h2>Reprobel (HTVA)</h2></a></th>
+    <th><a href="lister_articles.php?ordre=bebat"><h2>Bebat (HTVA)</h2></a></th>
+    <th><a href="lister_articles.php?ordre=uni"><h2>Unité</h2></a></th>
+    <th><a href="lister_articles.php?ordre=stomin"><h2>Mini</h2></a></th>
+    <th><a href="lister_articles.php?ordre=stomax"><h2>Maxi</h2></a></th>
+    <th><a href="lister_articles.php?ordre=reference"><h2>Référence</h2></a></th>
+    </tr>
+  <?php
+	$nombre="1";
+while($data = mysql_fetch_array($req))
+    {
+		$article = $data['article'];
+		$article_html=addslashes($article);
+		$article = htmlentities($article, ENT_QUOTES);
+		$cat = $data['categorie'];
+		$cat = htmlentities($cat, ENT_QUOTES);
+		$num =$data['num'];
+		$prix = $data['prix_htva'];
+		$tva = $data['taux_tva'];
+		$uni = $data['uni'];
+		$stock = $data['stock'];
+		$min = $data['stomin'];
+		$max = $data['stomax'];
+		$marque = $data['marque'];
+		$reference = $data['reference'];
+		$commentaire = $data['commentaire'];
+		$marge = $data['marge'];
+		$garantie = $data['garantie'];
+		$recupel = $data['recupel'];
+		$reprobel = $data['reprobel'];
+		$bebat = $data['bebat'];
+		
+		if ($stock < $min ||$stock > $max  ) { 
+  		$stock="<h1>$stock</h1>";
+		}
+		
+		$nombre = $nombre +1;
+		if($nombre & 1){
+$line="0";
+}else{
+$line="1";
+ 
+}
+		?>
+		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
+	<?php 
+	if ($use_categorie =='y') { ?>	
+	<td class="highlight" valign="middle"><?php echo $cat; ?></td>
+	<?php } ?>
+	<td class="highlight" valign="middle"><?php echo $marque; ?></td>
+	<td class="highlight" valign="middle"><?php echo $article; ?></td>
+	<td class="highlight" valign="middle"><?php echo $garantie; ?></td>
+	<td class="highlight" valign="middle"><?php echo $stock; ?></td>
+	<td class="highlight" valign="middle"><?php echo montant_financier ($prix); ?></td>
+    <td class="highlight" valign="middle"><?php if ($marge != ""){echo $marge." %"; }?></td>
+    <td class="highlight" valign="middle"><?php echo $commentaire; ?></td>
+    <td rowspan="2" class="highlight"><a href='edit_art.php?article=<?php echo $num; ?>'>
+	                <img border=0 alt="<?php echo $lang_editer; ?>" src="image/edit.gif"></a></td>
+		<td rowspan="2" class="highlight"><a href="delete_article.php?article=<?php echo $num; ?>" onClick="return confirmDelete('<?php echo"$lang_art_effa $article_html ?"; ?>')">
+	                <img border=0 alt="<?php echo $lang_suprimer; ?>" src="image/delete.jpg" ></a></td></tr>
+		<tr class="texte<?php echo"$line" ?>" onmouseover="this.className='highlight'" onmouseout="this.className='texte<?php echo"$line" ?>'">
+		  <td class="highlight" valign="middle"><?php echo "$tva %"; ?></td>
+		  <td class="highlight" valign="middle"><?php if ($recupel != ""){echo $recupel." &euro;"; }?></td>
+		  <td class="highlight" valign="middle"><?php if ($reprobel != ""){echo $reprobel." &euro;"; }?></td>
+		  <td class="highlight" valign="middle"><?php if ($bebat != ""){echo $bebat." &euro;"; }?></td>
+		  <td class="highlight" valign="middle"><?php echo $uni; ?></td>
+		  <td class="highlight" valign="middle"><?php echo $min; ?></td>
+		  <td class="highlight" valign="middle"><?php echo $max; ?></td>
+		  <td class="highlight" valign="middle"><?php echo $reference; ?></td>
+		  </tr>
+    <?php
+		}
+ ?>
+ <tr><td colspan="10" class="submit"></td>
+  </table>
+  </center>
+<?php
+include_once("include/bas.php");
+?>
+</table>
+</table></body>
+</html>

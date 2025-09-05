@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+<!--La table qui présente les information du profil-->
+table.profile {
+	width:70%;
+}
+<!--La cellule titre du tableau-->
+td.titre{
+	background-color:#00bce4;
+}
+<!--Les intitulé précédent le contenu-->
+td.intitule{
+	
+}
+<!--Le contenu/les données-->
+td.contenu{
+	
+}
+
+table.test {
+	width:70%;
+}
+
+td.test{
+	background-color:#03F;
+}

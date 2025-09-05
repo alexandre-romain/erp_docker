@@ -1,0 +1,235 @@
+<script language="javascript" src="include/themes/FAST_IT/menu.js" type="text/javascript"></script>
+
+<div id="conteneurmenu">
+<script language="Javascript" type="text/javascript">
+preChargement();
+</script>
+<? $tab = '0'; ?>
+<!-- menu 1 : Tableau de bord-->
+<p id="menu1" class="menu first" onmouseover="MontrerMenu('ssmenu1');" onmouseout="CacherDelai();">
+      <a accesskey="Z" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="accueil.php" onfocus="MontrerMenu('ssmenu1');"><u>A</u>ccueil<span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu1" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="accueil.php">Tableau de bord<span>&nbsp;;</span></a></li>
+</ul>
+
+<!-- menu 1 : Interventions-->
+<p id="menu2" class="menu" onmouseover="MontrerMenu('ssmenu2');" onmouseout="CacherDelai();">
+      <a accesskey="X" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu2');"><u>T</u>ickets<span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu2" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="new_task.php"><?php echo $lang_creer ?> T&acirc;che<span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="list_task.php"><?php echo $lang_lister ?> T&acirc;ches<span>.</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="list_ticket.php"><?php echo $lang_lister ?> Tickets<span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="param_ticket.php">Param&egrave;tres<span>.</span></a></li>
+    
+</ul>
+
+<!-- menu 2 : Devis -->
+<p id="menu3" class="menu" onmouseover="MontrerMenu('ssmenu3');" onmouseout="CacherDelai();">
+      <a accesskey="D" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu3');"><u>D</u>evis &nbsp;&nbsp;<span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu3" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_dev != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_devis.php"><?php echo $lang_creer ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_devis.php"><?php echo $lang_lister ?><span>.</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="chercher_devis.php"><?php echo $lang_cherc ?><span>.</span></a></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="devis_predef.php"><i class="fa fa-floppy-o" style="vertical-align:top"></i> Pr&eacute;d&eacute;finis<span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="devis_non_commandes.php"><?php echo $lang_non_com ?><span>.</span></a></li>
+	<?php } ?>
+</ul>
+
+<!-- menu 3 : Commandes -->
+<p id="menu4" class="menu" onmouseover="MontrerMenu('ssmenu4');" onmouseout="CacherDelai();">
+      <a accesskey="D" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu4');"><u>C</u>des<span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu4" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_com != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_commande.php"><?php echo $lang_creer ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_commandes.php"><?php echo $lang_lister ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="chercher_commande.php"><?php echo $lang_cherc ?><span>&nbsp;;</span></a></li>
+	<li>--------------<span>.</span></li>  
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="bos.php">Back Orders<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_commandes_non_facturees.php">Commandes en cours<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="fichier_commande.php">Fichier des Commandes<span>&nbsp;;</span></a></li> 
+	<?php } ?>
+</ul>
+
+<!-- menu 4 : BL -->
+<p id="menu5" class="menu" onmouseover="MontrerMenu('ssmenu5');" onmouseout="CacherDelai();">
+      <a accesskey="B" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu5');"><u>B</u>L<span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu5" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_bl.php"><?php echo $lang_creer ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_bl.php"><?php echo $lang_lister ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="chercher_bl.php"><?php echo $lang_cherc ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_bl_non_factures.php">BL en cours<span>&nbsp;;</span></a></li>	
+</ul>
+
+<!-- menu 5 : Factures -->
+<p id="menu6" class="menu" onmouseover="MontrerMenu('ssmenu6');" onmouseout="CacherDelai();">
+      <a accesskey="F" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu6');"><u>F</u>actures &nbsp; <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu6" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_fact != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_facture.php"><?php echo $lang_creer ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_factures.php"><?php echo $lang_lister ?><span>.</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="chercher_factures.php"><?php echo $lang_cherc ?><span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_factures_non_reglees.php">Factures Impayées<span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="listing_tva.php">Listing TVA<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="impression_groupee.php">Impression Groupée<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_nc.php">Lister NC<span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="nc.php">Créer NC<span>&nbsp;;</span></a></li>
+	<?php } ?>
+</ul>
+
+<!-- menu 6 : Achats -->
+<p id="menu7" class="menu" onmouseover="MontrerMenu('ssmenu7');" onmouseout="CacherDelai();">
+		<a accesskey="A" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu7');"><u>A</u>chats &nbsp; <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu7" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_dep != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_depenses.php"><?php echo $lang_creer ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_depenses.php"><?php echo $lang_lister ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="chercher_dep.php"><?php echo $lang_cherc ?><span>&nbsp;;</span></a></li>
+	<?php if ($user_stat != 'n') { ?>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="stats_dep.php"><?php echo $lang_depenses_par_fournisseur; ?><span>&nbsp;;</span></a></li>
+	<!--<li><a tabindex="<? //$tab = $tab+1; echo $tab; ?>" href="stat_depenses_mois.php"><?php //echo $lang_depenses_par_fournisseur_mois; ?><span>&nbsp;;</span></a></li>-->
+	<!--li><a tabindex="<? //$tab = $tab+1; echo $tab; ?>" href="stat_depenses_annee.php"><?php //echo $lang_depenses_par_fournisseur_mois_annee ?><span>&nbsp;;</span></a></li>-->
+    <?php }} ?>
+</ul>
+
+<!-- menu 7 : Articles -->
+<p id="menu8" class="menu" onmouseover="MontrerMenu('ssmenu8');" onmouseout="CacherDelai();">
+		<a accesskey="R" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu8');">A<u>r</u>ticles &nbsp; <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu8" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_art != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_article.php"><?php echo $lang_creer ?><span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_articles_form.php"><?php echo $lang_lister ?><span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="rma.php">R.M.A.<span>&nbsp;;</span></a></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="rma_options.php">Param&egrave;tres R.M.A.<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="renouvellement.php">Renew<span>&nbsp;;</span></a></li>
+	<?php } ?>
+</ul>
+
+<!-- menu 8 : Clients -->
+<p id="menu9" class="menu" onmouseover="MontrerMenu('ssmenu9');" onmouseout="CacherDelai();">
+		<a accesskey="L" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu9');">C<u>l</u>ients &nbsp; &nbsp; <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu9" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_cli != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_client.php">Créer<span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_clients.php">Lister<span>&nbsp;;</span></a></li>
+	<?php } ?>
+</ul>
+
+<!-- menu 9 : Statistiques -->
+<p id="menu10" class="menu" onmouseover="MontrerMenu('ssmenu10');" onmouseout="CacherDelai();">
+     <a accesskey="S" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu10');"><u>S</u>tats <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu10" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_stat != 'n') { ?>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="stats_tickets.php">Statistiques Tickets<span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="ca_articles.php">Statistiques Articles<span>.</span></a></li>
+    <li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="stat_article.php">Statistiques un Article<span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="ca_annee.php">C.A. Annuel<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="ca_parclient.php">C.A. Annuel par Client<span>.</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="ca_parclient_1mois.php">C.A. Mensuel par Client<span>.</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_stat_client.php">C.A. Mensuel un client<span>.</span></a></li>
+	<!--<li><a tabindex="<? //$tab = $tab+1; echo $tab; ?>" href="stat_depenses_mois.php"><?php //echo $lang_depenses_par_fournisseur_mois; ?><span>&nbsp;;</span></a></li>-->
+	<!--<li><a tabindex="<? //$tab = $tab+1; echo $tab; ?>" href="stats_dep.php"><?php //echo $lang_depenses_par_fournisseur; ?><span>.</span></a></li>-->
+	<?php } ?>
+</ul>
+
+<!-- menu 10 : Outils -->
+<p id="menu11" class="menu" onmouseover="MontrerMenu('ssmenu11');"	onmouseout="CacherDelai();">
+	 <a accesskey="O" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="#" onfocus="MontrerMenu('ssmenu11');"><u>O</u>utils &nbsp; &nbsp; <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu11" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_admin == 'y'){ ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_utilisateurs.php">Ajouter User<span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="lister_utilisateurs.php">Lister Users<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="journal_dev.php">Journal de Dev.<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_mailing.php">Mailing List<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_backup.php"><?php echo $lang_back_men ?><span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="admin.php">Param&egrave;tres<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_tarifs.php">Tarifs<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_abos.php">Abonnements<span>&nbsp;;</span></a></li>	
+    <li>--------------<span>.</span></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_maintenance.php">Contrats maintenances<span>&nbsp;;</span></a></li>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="form_maintenance_listing.php">Listing maintenance<span>&nbsp;;</span></a></li>
+    <li>--------------<span>.</span></li>
+	<?php } ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="include/calculette.html" onclick="window.open('','popup','width=300,height=400,top=200,left=150,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0')" target="popup"><?php echo $lang_calculette; ?><span>&nbsp;;</span></a></li>
+</ul>
+
+<p id="menu12" class="menu" onmouseover="MontrerMenu('ssmenu12');" onmouseout="CacherDelai();">
+     <a accesskey="P" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="profil_user.php" onfocus="MontrerMenu('ssmenu12');"><u>P</u>rofil <span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu12" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_stat != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="profil_user.php"><?php echo Afficher ?> <span>&nbsp;;</span></a></li>
+	<?php } ?>
+</ul>
+<p id="menu13" class="menu last" onmouseover="MontrerMenu('ssmenu13');" onmouseout="CacherDelai();">
+     <a accesskey="K" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="packages.php" onfocus="MontrerMenu('ssmenu13');">Pac<u>k</u>ages <span>&nbsp;:</span></a>
+</p>
+<p id="menu14" class="menu last" onmouseover="MontrerMenu('ssmenu14');" onmouseout="CacherDelai();">
+     <a accesskey="l" tabindex="<? $tab = $tab+1; echo $tab; ?>" href="contrats.php" onfocus="MontrerMenu('ssmenu14');">Contrats<span>&nbsp;:</span></a>
+</p>
+<ul id="ssmenu13" class="ssmenu" onmouseover="AnnulerCacher();" onmouseout="CacherDelai();">
+	<?php if ($user_stat != 'n') { ?>
+	<li><a tabindex="<? $tab = $tab+1; echo $tab; ?>" href="profil_user.php"><?php echo Afficher ?> <span>&nbsp;;</span></a></li>
+	<?php } ?>
+</ul>
+<?php
+if ($lot == 'y') { ?>
+    <p id="menu11" class="menu"
+		onmouseover="MontrerMenu('ssmenu11');"
+		onmouseout="CacherDelai();">
+      <a href="#" onfocus="MontrerMenu('ssmenu11');">
+			<?php echo "$lang_lots"; ?> &nbsp; <span>&nbsp;:</span></a>
+    </p>
+    <ul id="ssmenu11" class="ssmenu"
+		onmouseover="AnnulerCacher();"
+		onmouseout="CacherDelai();">
+	<?php if ($user_fact != 'n') { ?>
+	<li><a href="lister_lot.php"><?php echo "Lister" ?><span>&nbsp;;</span></a></li>
+	<li><a href="form_lot.php"><?php echo "Créer" ?><span>.</span></a></li>
+	<li><a href="form_recherche_lot.php"><?php echo "Rechercher" ?><span>.</span></a></li>
+    <?php } ?>
+    </ul>
+  
+<?php 
+}
+ ?> 
+
+
+ 
+</div>
+<div id="texte"></div>
+<script language="Javascript" type="text/javascript">
+centrer_menu = true;
+Chargement();</script>

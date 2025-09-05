@@ -1,0 +1,365 @@
+@charset "utf-8";
+/* CSS Document */
+div.closed {
+	width:100px;
+	height:100px;
+	position:absolute;
+	background-image:url(../img/task_closed.png);
+	left:7%;
+	top:10%;
+}
+
+div.closed:hover {
+	background-image:url(../img/task_closed_hover.png);
+}
+
+div.open {
+	width:100px;
+	height:100px;
+	position:absolute;
+	background-image:url(../img/close_task.png);
+	left:7%;
+	top:10%;
+}
+
+div.open:hover {
+	background-image:url(../img/close_task_hover.png);
+}
+
+div.return {
+	width:100px;
+	height:100px;
+	position:absolute;
+	background-image:url(../img/back_to_tasklist.png);
+	right:2%;
+	bottom:5%;
+	z-index:100;
+}
+
+div.return:hover {
+	transform:rotate(-360deg);
+	-ms-transform:rotate(-360deg);
+	-webkit-transform:rotate(-360deg);
+	-moz-transition:transform 3s;
+    -webkit-transition:transform 3s;
+    -o-transition:transform 3s;
+}
+
+table.infotask {
+	width:80%;
+	margin-right:10%;
+	margin-left:10%;
+	border:10px solid #999;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	border-radius:5px;
+	border-spacing:0;
+}
+
+table.infotask td.intitule {
+	color:#00bce4;
+	background-image:url(../img/escheresque_ste.png);
+	width:15%;
+	text-align:center;
+}
+
+table.infotask td {
+	color:#FFF;
+	background-image:url(../img/escheresque_ste.png);
+	background-color:#333;
+	text-align:left;
+	font-size:12px;
+	border:1px solid #999;
+	height:30px;
+	vertical-align:middle;
+	width:35%;
+}
+
+table.infotask td:hover {
+	background-image:none;
+	background-color:#222;
+	border:1px solid #FFF;
+}
+
+a.link_ticket {
+	color:#999;
+	font-weight:bold;
+	font-size:14px;
+}
+
+a.link_ticket:hover {
+	color:#9A2214;
+	font-weight:bolder;
+}
+
+div.start {
+	background:url(../img/start_task.png);
+	width:150px;
+	height:150px;
+	float:right;
+	margin-right:10%;
+	margin-top:3%;
+}
+
+div.start:hover {
+	background:url(../img/start_task_hover.png);
+}
+
+div.stop {
+	background:url(../img/stop_task.png);
+	width:150px;
+	height:150px;
+	float:right;
+	margin-right:10%;
+	margin-top:3%
+}
+
+div.stop:hover {
+	background:url(../img/stop_task_hover.png);
+}
+
+div.grey {
+	background:url(../img/start_task_grey.png);
+	width:150px;
+	height:150px;
+	float:right;
+	margin-right:10%;
+	margin-top:3%
+}
+
+div.time_spent {
+	position:absolute;
+	right:7%;
+	top:29%;
+	border:5px solid #999;
+	width:25%;
+	height:3.2%;
+	padding-top:0.8%;
+	padding-bottom:0.8%;
+	font-size:20px;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	border-radius:15px;
+	color:#FFF;
+	background:#222;
+}
+
+div.time_spent:hover {
+	background:url(../img/escheresque_ste.png);	
+}
+
+span.blue {
+	color:#00bce4;
+	margin-right:20%;
+}
+
+button[type=submit] {
+	border-radius:5px;
+	margin-left:5px;
+	background:#0080e2;
+	border:0;
+	font-family:"Arial Black", Gadget, sans-serif;
+	color:#FFF;
+}
+
+input {
+	border-radius:5px;
+	border:0;
+	padding-left:5px;
+	font-weight:bold;
+}
+
+select {
+	font-weight:bold;
+	border-radius:5px;
+	border:0;
+}
+
+span.reset {
+	position:absolute;
+	margin-top:1.2%;
+	margin-left:5%;
+	width:15px;
+	height:15px;
+	background:url(../img/cross.png);
+}
+
+span.edit_timespent {
+	position:fixed;
+	right:10%;
+}
+
+a:link { /* PERMET DE DESACTIVER LE SOULIGNAGE DES LIENS*/
+	text-decoration:none;
+}
+
+a span.info {
+	display:none;
+}
+
+a:hover span.info {
+	display:block;
+	position:absolute;
+	top: 5%; 
+	left: 1%; 
+	width: 125px;
+	border:5px solid #999;
+	color:#FFF;
+	background:url(../img/escheresque_ste.png);
+	border-radius:5px;
+	font-weight:bold;
+	font-size:12px;
+}
+
+div.time_spent span.info_time {
+	display:none;
+}
+
+div.time_spent:hover span.info_time {
+	display:block;
+	position:absolute;
+	top: 135%; 
+	right: -28%; 
+	width: 150px;
+	border:5px solid #999;
+	color:#FFF;
+	background:url(../img/escheresque_ste.png);
+	border-radius:5px;
+	font-weight:bold;
+	font-size:12px;
+}
+
+a span.info_time_start {
+	display:none;
+}
+
+a:hover span.info_time_start {
+	display:block;
+	position:absolute;
+	top: 55%; 
+	right: 2%; 
+	width: 150px;
+	border:5px solid #999;
+	color:#FFF;
+	background:url(../img/escheresque_ste.png);
+	border-radius:5px;
+	font-weight:bold;
+	font-size:12px;
+}
+
+div.title_note {
+	position:absolute;
+	background:#222;
+	color:#00bce4;
+	border:10px solid #999;
+	border-radius:5px;
+	width:20%;
+	font-size:18px;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	right:1%;
+	top:9%;
+}
+
+div.content_note {
+	position:absolute;
+	font-family:"Arial Black", Gadget, sans-serif;
+	background:url(../img/escheresque_ste.png);
+	color:#FFF;
+	border:10px solid #999;
+	border-radius:5px;
+	width:20%;
+	font-size:13px;
+	right:1%;
+	top:13%;
+}
+
+div.note {
+	margin-top:5%;
+	margin-bottom:5%;
+	font-weight:bold;
+	text-align:justify;
+	margin-left:2%;
+	margin-right:2%;
+}
+
+div.hide_note {
+	margin:1%;
+	float:right;
+	background:url(../img/cross.png);
+	width:15px;
+	height:15px;
+	top:2px;
+	right:2px;
+	cursor:pointer;
+}
+
+div.title_files {
+	position:absolute;
+	background:url(../img/escheresque_ste.png);
+	color:#FFF;
+	border:10px solid #999;
+	border-radius:5px;
+	padding:1%;
+	width:20%;
+	font-size:18px;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	left:35%;
+	top:35%;
+}
+
+div.content_files {
+	position:absolute;
+	font-family:"Arial Black", Gadget, sans-serif;
+	background:url(../img/escheresque_ste.png);
+	color:#FFF;
+	border:10px solid #999;
+	border-radius:5px;
+	width:20%;
+	padding:1%;
+	font-size:12px;
+	left:35%;
+	top:43%;
+}
+
+div.hide_files {
+	position:absolute;
+	background:url(../img/cross.png);
+	width:15px;
+	height:15px;
+	top:3px;
+	right:3px;
+	cursor:pointer;
+}
+
+table.files {
+	margin-top:2%;
+	width:100%;
+	border-spacing:0;
+	border:2px solid #999;
+	border-radius:5px;
+}
+
+table.files th {
+	color:#00bce4;
+	height:2%;
+	background-color:#333;
+	border:1px solid #999;
+}
+
+table.files td {
+	background-color:#333;
+	color:#FFF;
+	height:1.5;
+	border:1px solid #999;
+	text-align:center;
+}
+
+div.show_files {
+	width:15px;
+	height:15px;
+	background:url(../img/show_file.png);
+	margin-left:auto;
+	margin-right:auto;
+}

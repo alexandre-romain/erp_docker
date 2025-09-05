@@ -1,0 +1,68 @@
+ <?php
+require_once("include/verif.php");
+include_once("include/config/common.php");
+include_once("include/language/$lang.php");
+include_once("include/config/var.php");
+$mail_admin = "$mail";
+$nom=isset($_POST['nom'])?$_POST['nom']:"";
+$nom=addslashes($nom);
+$nom_sup=isset($_POST['nom_sup'])?$_POST['nom_sup']:"";
+$nom_sup=addslashes($nom_sup);
+$rue=isset($_POST['rue'])?$_POST['rue']:"";
+$rue=addslashes($rue);
+$numero=isset($_POST['numero'])?$_POST['numero']:"";
+$boite=isset($_POST['boite'])?$_POST['boite']:"";
+$ville=isset($_POST['ville'])?$_POST['ville']:"";
+$code_post=isset($_POST['code_post'])?$_POST['code_post']:"";
+$num_tva=isset($_POST['num_tva'])?$_POST['num_tva']:"";
+$login=isset($_POST['login'])?$_POST['login']:"";
+$pass=isset($_POST['pass'])?$_POST['pass']:"";
+$mail_cli=isset($_POST['mail'])?$_POST['mail']:"";
+$pass2=isset($_POST['pass2'])?$_POST['pass2']:"";
+$civ=isset($_POST['civ'])?$_POST['civ']:"";
+$tel=isset($_POST['tel'])?$_POST['tel']:"";
+$fax=isset($_POST['fax'])?$_POST['fax']:"";
+$gsm=isset($_POST['gsm'])?$_POST['gsm']:"";
+
+if($pass != $pass2) {
+	$message = "$lang_mot_pa";
+	include('form_client.php');
+	exit;
+}
+
+$pass = md5($pass);
+
+if($nom=='' || $rue=='' || $ville=='' || $code_post=='' || $num_tva=='') {
+	$message= "$lang_oubli_champ";
+	include('form_client.php'); // On inclus le formulaire d'identification
+	exit;
+}
+if ($login !=''){
+	$sql = "SELECT * FROM " . $tblpref ."client WHERE login = '".$login."'";
+	$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
+	$test = mysql_num_rows($req);
+	if ($test > 0) { 
+		$message= "$lang_er_mo_pa";
+		include('form_client.php');
+		exit;
+	}
+}
+$sql1 = "INSERT INTO " . $tblpref ."client(nom, nom2, rue, numero, boite, ville, cp, num_tva, login, pass, mail, civ, tel, fax, gsm) VALUES ('$nom', '$nom_sup', '$rue', '$numero', '$boite', '$ville', '$code_post', '$num_tva', '$login', '$pass', '$mail_cli', '$civ', '$tel', '$fax', '$gsm')";
+mysql_query($sql1) or die('Erreur SQL !<br>'.$sql1.'<br>'.mysql_error());
+if ($login!='' and $pass2 !='' and $mail_cli !='') { 
+	$to = "$mail_cli";
+	$from = "$mail_admin" ;
+	
+	$subject2 = "$lang_cre_mo_pa" ;
+	$message =  "$lang_mai_cre $login <br>$lang_mai_cr_pa $pass2 <br>$lang_mai_cre_enc <a href=mailto:'".$mail_admin."'>$lang_admini</a> $lang_pass_nou"; 
+	$header = 'From: '.$from."\n"
+	 .'MIME-Version: 1.0'."\n"
+	 .'Content-Type: text/html; charset= ISO-8859-1'."\n"
+	 .'Content-Transfer-Encoding: 7bit'."\n\n";
+	
+	mail($to,$subject2,$message,$header);
+	$message= "$lang_noti_pa";  
+}
+$message= "$lang_client_enr";
+include("form_client.php");
+?>

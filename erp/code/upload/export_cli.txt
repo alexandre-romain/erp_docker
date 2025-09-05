@@ -1,0 +1,4 @@
+CreateKeyAll: Y
+IgnoreAnalClosed: Y
+DossierSelect: 001
+AcctingSelect: 00

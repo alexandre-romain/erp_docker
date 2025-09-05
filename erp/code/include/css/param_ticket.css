@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document */
+
+table.type_task {
+	float:left;
+	/*border-collapse:collapse;*/
+	width:35%;
+	margin:2.5%;
+	border-spacing:0;
+	border:10px solid #999;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	border-radius:5px;
+}
+
+table.type_task th.title {
+	height:40px;
+	font-size:18px;
+	vertical-align:middle;
+	background:url(../img/escheresque_ste.png);
+	border:1px solid #999;
+	color:#00bce4;
+}
+
+table.type_task th.subth {
+	height:20px;
+	font-size:14px;
+	vertical-align:middle;
+	background:url(../img/escheresque_ste.png);
+	border:1px solid #999;
+	color:#00bce4;
+}
+
+table.type_task th.num {
+	width:10%;
+}
+
+table.type_task td {
+	border:1px solid #999;
+	background:url(../img/escheresque_ste.png);
+	color:#fff;
+	
+}
+
+table.type_task td.num {
+	width:5%;
+}
+
+form.add_type input[type=text] {
+	border-radius:5px;
+	margin-right:2%;
+	border:0;
+	margin-left:75px;
+	margin-top:1.7px;
+	
+}
+
+form.add_type input[type=submit] {
+	border-radius:5px;
+	background:#00bce4;
+	border:0;
+	font-weight:bold;
+	font-family:"Arial Black", Gadget, sans-serif;
+	color:#FFF;
+	width:80px;
+}
+
+span.delete {
+	float:right;
+	width:15px;
+	height:15px;
+	background-image:url(../img/cross.png);
+}
+
+span.add {
+	float:right;
+}
+

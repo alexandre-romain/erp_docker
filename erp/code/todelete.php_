@@ -1,0 +1,13 @@
+<?
+///////////////// mise a jour du stock
+
+
+$sql = "SELECT quanti, article_num from " . $tblpref ."cont_bl WHERE num = '".$num_cont."'";
+$req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
+$data = mysql_fetch_array($req);
+$quantiplus = $data['quanti'];
+$artiplus = $data['article_num'];
+$sql11 = "UPDATE `" . $tblpref ."article` SET `stock` = (stock + $quantiplus) WHERE `num` = '$artiplus'";
+mysql_query($sql11) or die('Erreur SQL11 !<br>'.$sql11.'<br>'.mysql_error());
+
+?>

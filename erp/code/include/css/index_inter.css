@@ -1,0 +1,169 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Positionnement des 4tableaux */
+
+table.gauche{
+	float:left;
+	/*border-collapse:collapse;*/
+	width:45%;
+	margin:1.5%;
+	border-top-right-radius:15px;
+	border-top-left-radius:15px;
+
+}
+
+table.droite{
+	float:right;
+	/*border-collapse:collapse;*/
+	width:45%;
+	margin:1.5%;
+	border-top-right-radius:15px;
+	border-top-left-radius:15px;
+}
+
+table.gauche tr:first-child th:first-child {
+    -moz-border-radius-topleft:15px;
+    -webkit-border-top-left-radius:15px;
+    border-top-left-radius:15px;
+	-moz-border-radius-topright:15px;
+    -webkit-border-top-right-radius:15px;
+    border-top-right-radius:15px;
+}
+
+table.droite tr:first-child th:first-child {
+    -moz-border-radius-topleft:15px;
+    -webkit-border-top-left-radius:15px;
+    border-top-left-radius:15px;
+	-moz-border-radius-topright:15px;
+    -webkit-border-top-right-radius:15px;
+    border-top-right-radius:15px;
+}
+
+/*table.gauche tr:first-child th:first-child {
+    -moz-border-radius-topright:20px;
+    -webkit-border-top-right-radius:20px;
+    border-top-right-radius:20px
+}
+*/
+/* Définition de la bordure pour toutes les cellules, td, th */
+
+.wscreen{
+	border:1pt solid black;
+}
+
+/* Positionnement du texte dans les td */
+td.wscreen{
+	text-align:center;
+}
+
+/* Propriétés des titres des colones */
+th.wscreen{
+	background-color:#a6c3d3;
+	height:20px;
+}
+
+/* Propriétés des titres des tableaux */
+th.title{
+	background-color:#65add5;
+	border:1px solid black;
+	height:30px;
+	font-size:14px;
+}
+
+/* Changement de couleur de la ligne survolée */
+.tligne:hover{
+	background-color:#65add5;
+}
+
+.tligne:hover lastchild{
+	background-color:#65add5;
+}
+
+/* Gestion des liens vers les inters/tâches */
+
+a:hover{
+	color:white;
+}
+
+/* Gestion du div de pied de page */
+/*div.line_bottom{
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	height:100px;
+	text-align:center;
+	background-color:#65add5;
+	border-top:1px solid black;
+}
+*/
+div.cadre_bot_top_left{
+	text-align:center;
+	position:fixed;
+	width:45%;
+	height:50px;
+	bottom:50px;
+	left:1%;
+	background-color:#65add5;
+	font-size:24px;
+	line-height:45px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+/*
+div.cadre_bot_top_left:hover{
+	font-size:25px;
+	color:#FFF;
+}
+*/
+div.cadre_bot_bot_left{
+	text-align:center;
+	position:fixed;
+	width:45%;
+	height:50px;
+	bottom:0px;
+	left:1%;
+	background-color:#a6c3d3;
+	font-size:24px;
+	line-height:45px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+div.cadre_bot_top_right{
+	text-align:center;
+	position:fixed;
+	width:45%;
+	height:50px;
+	bottom:50px;
+	right:1%;
+	background-color:#a6c3d3;
+	font-size:24px;
+	line-height:45px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+div.cadre_bot_bot_right{
+	text-align:center;
+	position:fixed;
+	width:45%;
+	height:50px;
+	bottom:0px;
+	right:1%;
+	background-color:#65add5;
+	font-size:24px;
+	line-height:45px;
+	/*transform:rotate(1deg);*/
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}

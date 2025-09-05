@@ -1,0 +1,195 @@
+@charset "utf-8";
+/* CSS Document */
+
+div.bot_bar {
+	position:fixed;
+	background-color:#FFF;
+	width:100%;
+	height:15%;
+	bottom:-11%;
+	right:0;
+	left:0;
+	border-top:10px solid #999;
+	color:white;
+	background-image:url(../img/escheresque_ste.png);
+	font-size:14px;
+	font-weight:bolder;
+	font-family:"Arial Black", Gadget, sans-serif;
+	-moz-box-shadow: 0 0 50px 5px #888;
+	-webkit-box-shadow: 0 0 50px 5px#888;
+	box-shadow: 0 0 50px 5px #333;
+	-moz-transition:bottom 2s;
+    -webkit-transition:bottom 2s;
+    -o-transition:bottom 2s;
+	z-index:1000;
+}
+
+div.bot_bar:hover {
+	bottom:0%;
+	-moz-transition:bottom 1s;
+    -webkit-transition:bottom 1s;
+    -o-transition:bottom 1s;
+	z-index:1000;
+}
+
+div.date {
+	float:right;
+	margin-right:2%;
+	margin-top:0.3%;
+}
+
+div.timer {
+	float:right;
+}
+
+div.user {
+	float:left;
+	margin-left:1%;
+	margin-top:0.3%;
+	margin-right:1%;
+}
+
+div.shortcut {
+	float:left;
+	margin-right:2.1%;
+	width:100px;
+	height:100px;
+	margin-top:1%;
+}
+
+div.s_accueil{
+	background:url(../img/shortcut_accueil.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_accueil:hover {
+	transform:rotate(-33deg);
+	-ms-transform:rotate(-33deg);
+	-webkit-transform:rotate(-33deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+
+
+
+div.s_new_task {
+	background:url(../img/shortcut_new_task_ticket.png);
+	-moz-transition:transform 2s;
+    -webkit-transition:transform 2s;
+    -o-transition:transform 2s;
+}
+div.s_new_task:hover {
+	transform:rotate(-150deg);
+	-ms-transform:rotate(-150deg);
+	-webkit-transform:rotate(-150deg);
+	-moz-transition:transform 2s;
+    -webkit-transition:transform 2s;
+    -o-transition:transform 2s;
+}
+
+div.s_list_task{
+	background:url(../img/shortcut_liste_tasks.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_list_task:hover {
+	transform:rotate(-75deg);
+	-ms-transform:rotate(-75deg);
+	-webkit-transform:rotate(-75deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+
+div.s_list_ticket{
+	background:url(../img/shortcut_liste_ticket.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_list_ticket:hover {
+	transform:rotate(-84deg);
+	-ms-transform:rotate(-84deg);
+	-webkit-transform:rotate(-84deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+
+div.s_new_fact{
+	background:url(../img/shortcut_new_fact.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_new_fact:hover {
+	transform:rotate(-85deg);
+	-ms-transform:rotate(-85deg);
+	-webkit-transform:rotate(-85deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+
+div.s_list_fact{
+	background:url(../img/shortcut_liste_factures.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_list_fact:hover{
+	transform:rotate(-88deg);
+	-ms-transform:rotate(-88deg);
+	-webkit-transform:rotate(-88deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+} 
+
+div.s_list_article{
+	background:url(../img/shortcut_liste_articles.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_list_article:hover{
+	transform:rotate(-85deg);
+	-ms-transform:rotate(-85deg);
+	-webkit-transform:rotate(-85deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+
+div.s_profil{
+	background:url(../img/shortcut_profil.png);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+div.s_profil:hover{
+	transform:rotate(-30deg);
+	-ms-transform:rotate(-30deg);
+	-webkit-transform:rotate(-30deg);
+	-moz-transition:transform 1s;
+    -webkit-transition:transform 1s;
+    -o-transition:transform 1s;
+}
+
+div.s_param_task{
+	background:url(../img/shortcut_param_ticket_task.png);
+	-moz-transition:transform 2s;
+    -webkit-transition:transform 2s;
+    -o-transition:transform 2s;
+}
+div.s_param_task:hover{
+	transform:rotate(-130deg);
+	-ms-transform:rotate(-130deg);
+	-webkit-transform:rotate(-130deg);
+	-moz-transition:transform 2s;
+    -webkit-transition:transform 2s;
+    -o-transition:transform 2s;
+}

@@ -1,0 +1,2 @@
+PHP Warning:  mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) in /var/gestion/import_tech/import.php on line 9
+serveur de base de données injoignable. Vérifiez dans /factux/include/common.php si localhost est correct.

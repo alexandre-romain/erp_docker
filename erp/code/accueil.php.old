@@ -1,0 +1,442 @@
+<?php
+//Contient le doctype + inclusions générales
+include_once("include/headers.php");
+?>
+<!--INCLUSION JS, CSS, LIBRAIRIES PROPRES A LA PAGE-->
+<link rel="stylesheet" type="text/css" href="include/css/tab_bord.css" />
+<script>
+	
+</script>
+<?php 
+//Ferme le <head>, ouvre le <body> & inclus le menu + ouverture content
+include_once("include/finhead.php");
+?>
+
+<?php
+//Récupération des widgets activés pas l'uitlisateur
+$sql=" SELECT widgt_inter_all, widgt_inter_user, widgt_ticket_user, widgt_ticket_all, widgt_ticket_close_non_fact, widgt_task_day, widgt_commande";
+$sql.=" FROM ".$tblpref."user";
+$sql.=" WHERE num='".$num_user."'";
+$reqsql=mysql_query($sql) or die ('erreur resquest widgets :'.$sql);
+$result_sql=mysql_fetch_object($reqsql);
+$widget_inter_all=$result_sql->widgt_inter_all;
+$widget_inter_user=$result_sql->widgt_inter_user;
+$widget_widgt_ticket_user=$result_sql->widgt_ticket_user;
+$widget_widgt_ticket_all=$result_sql->widgt_ticket_all;
+$widget_ticket_close_non_fact=$result_sql->widgt_ticket_close_non_fact;
+$widget_task_day=$result_sql->widgt_task_day;
+$widget_commande=$result_sql->widgt_commande;
+
+//Affichage du widget Task - Mes Task // 10Dernières, Ouvertes
+if ($widget_inter_all == '1') {
+	$sql="SELECT t.rowid as trowid, t.name as tname, t.date_due as tdate_due, c.nom as cnom, ti.name as tiname, tt.type as type, ti.rowid as tirowid";
+	$sql.=" FROM ".$tblpref."task as t";
+	$sql.=" LEFT JOIN ".$tblpref."ticket as ti ON ti.rowid=t.ticket_num";
+	$sql.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=ti.soc";
+	$sql.=" LEFT JOIN ".$tblpref."type_task as tt ON tt.rowid=t.type";	
+	$sql.=" WHERE t.user_intervenant='".$num_user."' AND t.state='0'";
+	$sql.=" ORDER BY t.date_due ASC";
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='5'>Mes T&acirc;ches Ouvertes</th>
+    </tr><tr>
+    <th class="soustitre">Nom</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date Due</th>
+    <th class="soustitre">Type</th>    
+    <th class="soustitre">Ticket</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql) or die ('erreur resquest 1');
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		//Récupération de la date du jour, et conversion en timestamp
+		$date_today=date('d-m-Y');
+		list($day, $month, $year) = explode('-', $date_today);
+		$ts_today = mktime(0, 0, 0, $month, $day, $year);
+		//Récupération de la date de fin et conversion en timestamp
+		$date_due=$obj0->tdate_due;
+		list($year, $month, $day) = explode('-', $date_due);
+		$ts_fin = mktime(0, 0, 0, $month, $day, $year);
+		//Convertion des dates au format mysql
+		$dateduetemp = explode(' ',$obj0->tdate_due);
+		$date = $dateduetemp[0];
+		$datetemp = explode('-',$date);
+		$heure = $dateduetemp[1];
+		$jour = $datetemp[0];
+		$mois = $datetemp[1];
+		$annee = $datetemp[2];
+		$date_due_ticket_correct=$annee."-".$mois."-".$jour;
+		$date_due_ticket_final=$date_due_ticket_correct.' '.$heure;
+		//Comparaison des deux dates, si date_fin < date_du_jour alors on surligne en rouge pour signifier le retard
+		if ($ts_fin < $ts_today) {
+			echo '<tr>';
+			echo '<td class="retard"><a class="link" href="./task.php?num_task='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="retard">'.$obj0->cnom.'</td>';
+			echo '<td class="retard">'.$date_due_ticket_final.'</td>';
+			echo '<td class="retard">'.$obj0->type.'</td>';
+			echo '<td class="retard"><a class="link" href="./ticket.php?num_ticket='.$obj0->tirowid.'">'.stripslashes($obj0->tiname).'</a></td>';
+			echo '</tr>';
+		}
+		else {
+			echo '<tr>';
+			echo '<td class="ok"><a class="link" href="./task.php?num_task='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="ok">'.$obj0->cnom.'</td>';
+			echo '<td class="ok">'.$date_due_ticket_final.'</td>';
+			echo '<td class="ok">'.$obj0->type.'</td>';
+			echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->tirowid.'">'.stripslashes($obj0->tiname).'</a></td>';
+			echo '</tr>';
+		}
+	}	
+	?>
+	</table>
+    
+	<?php
+}
+//Affichage du widget Task - Toutes les tâches // 10Dernières, Ouvertes
+if ($widget_inter_user == '1') {
+	$sql="SELECT t.rowid as trowid, t.name as tname, t.date_due as tdate_due, c.nom as cnom, ti.name as tiname, u.login as ulogin, tt.type as type, ti.rowid as tirowid";
+	$sql.=" FROM ".$tblpref."task as t";
+	$sql.=" LEFT JOIN ".$tblpref."ticket as ti ON ti.rowid=t.ticket_num";
+	$sql.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=ti.soc";
+	$sql.=" LEFT JOIN ".$tblpref."user as u ON u.num=t.user_intervenant";
+	$sql.=" LEFT JOIN ".$tblpref."type_task as tt ON tt.rowid=t.type";
+	$sql.=" WHERE t.state='0'";
+	$sql.=" ORDER BY t.date_due ASC";
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='6'>Toutes les T&acirc;ches Ouvertes</th>
+    </tr><tr>
+    <th class="soustitre">Nom</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date Due</th>
+    <th class="soustitre">Type</th>
+    <th class="soustitre">Intervenant</th>
+    <th class="soustitre">Ticket</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql) or die ('erreur resquest 2');
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		//Récupération de la date du jour, et conversion en timestamp
+		$date_today=date('d-m-Y');
+		list($day, $month, $year) = explode('-', $date_today);
+		$ts_today = mktime(0, 0, 0, $month, $day, $year);
+		//Récupération de la date de fin et conversion en timestamp
+		$date_due=$obj0->tdate_due;
+		list($year, $month, $day) = explode('-', $date_due);
+		$ts_fin = mktime(0, 0, 0, $month, $day, $year);
+		//Convertion des dates au format mysql
+		$dateduetemp = explode(' ',$obj0->tdate_due);
+		$date = $dateduetemp[0];
+		$datetemp = explode('-',$date);
+		$heure = $dateduetemp[1];
+		$jour = $datetemp[0];
+		$mois = $datetemp[1];
+		$annee = $datetemp[2];
+		$date_due_ticket_correct=$annee."-".$mois."-".$jour;
+		$date_due_ticket_final=$date_due_ticket_correct.' '.$heure;
+		//Comparaison des deux dates, si date_fin < date_du_jour alors on surligne en rouge pour signifier le retard
+		if ($ts_fin < $ts_today) {
+			echo '<tr>';
+			echo '<td class="retard"><a class="link" href="./task.php?num_task='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="retard">'.$obj0->cnom.'</td>';
+			echo '<td class="retard">'.$date_due_ticket_final.'</td>';
+			echo '<td class="retard">'.$obj0->type.'</td>';
+			echo '<td class="retard">'.ucfirst($obj0->ulogin).'</td>';
+			echo '<td class="retard"><a class="link" href="./ticket.php?num_ticket='.$obj0->tirowid.'">'.stripslashes($obj0->tiname).'</a></td>';
+			echo '</tr>';
+		}
+		else {
+			echo '<tr>';
+			echo '<td class="ok"><a class="link" href="./task.php?num_task='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="ok">'.$obj0->cnom.'</td>';
+			echo '<td class="ok">'.$date_due_ticket_final.'</td>';
+			echo '<td class="ok">'.$obj0->type.'</td>';
+			echo '<td class="ok">'.ucfirst($obj0->ulogin).'</td>';			
+			echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->tirowid.'">'.stripslashes($obj0->tiname).'</a></td>';
+			echo '</tr>';
+		}
+	}				
+	?>
+	</table>  
+	<?php
+}
+//Affichage du widget Ticket - Mes Tickets // 10Dernières, Ouverts
+if ($widget_widgt_ticket_user == '1') {
+	$sql="SELECT t.rowid as trowid, t.name as tname, t.date_due as tdate_due, c.nom as cnom";
+	$sql.=" FROM ".$tblpref."ticket as t";
+	$sql.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=t.soc";
+	$sql.=" WHERE t.user_in_charge='".$num_user."' AND t.state='0'";
+	$sql.=" ORDER BY t.date_due ASC";
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='3'>Mes Tickets Ouverts</th>
+    </tr><tr>
+    <th class="soustitre">Nom</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date Due</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql) or die ('erreur resquest 3');
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		//Récupération de la date du jour, et conversion en timestamp
+		$date_today=date('d-m-Y');
+		list($day, $month, $year) = explode('-', $date_today);
+		$ts_today = mktime(0, 0, 0, $month, $day, $year);
+		//Récupération de la date de fin et conversion en timestamp
+		$date_due=$obj0->tdate_due;
+		list($year, $month, $day) = explode('-', $date_due);
+		$ts_fin = mktime(0, 0, 0, $month, $day, $year);
+		//Convertion des dates au format mysql
+		$dateduetemp = explode(' ',$obj0->tdate_due);
+		$date = $dateduetemp[0];
+		$datetemp = explode('-',$date);
+		$heure = $dateduetemp[1];
+		$jour = $datetemp[0];
+		$mois = $datetemp[1];
+		$annee = $datetemp[2];
+		$date_due_ticket_correct=$annee."-".$mois."-".$jour;
+		$date_due_ticket_final=$date_due_ticket_correct.' '.$heure;
+		//Comparaison des deux dates, si date_fin < date_du_jour alors on surligne en rouge pour signifier le retard
+		if ($ts_fin < $ts_today) {
+			echo '<tr>';
+			echo '<td class="retard"><a class="link" href="./ticket.php?num_ticket='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="retard">'.$obj0->cnom.'</td>';
+			echo '<td class="retard">'.$date_due_ticket_final.'</td>';
+			echo '</tr>';
+		}
+		else {
+			echo '<tr>';
+			echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="ok">'.$obj0->cnom.'</td>';
+			echo '<td class="ok">'.$date_due_ticket_final.'</td>';
+			echo '</tr>';
+		}
+	}	
+	?>
+	</table>
+    
+	<?php
+}
+//Affichage du widget Ticket - Tous les Tickets // 10Derniers, Ouverts
+if ($widget_widgt_ticket_all == '1') {
+	$sql="SELECT t.rowid as trowid, t.name as tname, t.date_due as tdate_due, c.nom as cnom, u.login as ulogin";
+	$sql.=" FROM ".$tblpref."ticket as t";
+	$sql.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=t.soc";
+	$sql.=" LEFT JOIN ".$tblpref."user as u ON u.num=t.user_in_charge";
+	$sql.=" WHERE t.state='0'";
+	$sql.=" ORDER BY t.date_due ASC";
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='4'>Tous les Tickets Ouverts</th>
+    </tr><tr>
+    <th class="soustitre">Nom</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date Due</th>
+    <th class="soustitre">Responsable</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql) or die ('erreur resquest 4');
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		//Récupération de la date du jour, et conversion en timestamp
+		$date_today=date('d-m-Y');
+		list($day, $month, $year) = explode('-', $date_today);
+		$ts_today = mktime(0, 0, 0, $month, $day, $year);
+		//Récupération de la date de fin et conversion en timestamp
+		$date_due=$obj0->tdate_due;
+		list($year, $month, $day) = explode('-', $date_due);
+		$ts_fin = mktime(0, 0, 0, $month, $day, $year);
+		//Convertion des dates au format mysql
+		$dateduetemp = explode(' ',$obj0->tdate_due);
+		$date = $dateduetemp[0];
+		$datetemp = explode('-',$date);
+		$heure = $dateduetemp[1];
+		$jour = $datetemp[0];
+		$mois = $datetemp[1];
+		$annee = $datetemp[2];
+		$date_due_ticket_correct=$annee."-".$mois."-".$jour;
+		$date_due_ticket_final=$date_due_ticket_correct.' '.$heure;
+		//Comparaison des deux dates, si date_fin < date_du_jour alors on surligne en rouge pour signifier le retard
+		if ($ts_fin < $ts_today) {
+			echo '<tr>';
+			echo '<td class="retard"><a class="link" href="./ticket.php?num_ticket='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="retard">'.$obj0->cnom.'</td>';
+			echo '<td class="retard">'.$date_due_ticket_final.'</td>';
+			echo '<td class="retard">'.ucfirst($obj0->ulogin).'</td>';
+			echo '</tr>';
+		}
+		else {
+			echo '<tr>';
+			echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+			echo '<td class="ok">'.$obj0->cnom.'</td>';
+			echo '<td class="ok">'.$date_due_ticket_final.'</td>';
+			echo '<td class="ok">'.ucfirst($obj0->ulogin).'</td>';
+			echo '</tr>';
+		}
+	}	
+	?>
+	</table>
+    
+	<?php
+}
+//Affichage du widget Ticket - Ticket Cloturé, non facturés // Tous, close, non-fact
+if ($widget_ticket_close_non_fact == '1') {
+	$sql="SELECT t.rowid as trowid, t.name as tname, t.date_due as tdate_due, c.nom as cnom, u.login as ulogin, t.soc as tsoc";
+	$sql.=" FROM ".$tblpref."ticket as t";
+	$sql.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=t.soc";
+	$sql.=" LEFT JOIN ".$tblpref."user as u ON u.num=t.user_in_charge";
+	$sql.=" WHERE t.state='1' AND t.facture='0'";
+	$sql.=" ORDER BY t.date_due ASC";
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='6'>Tickets Clotur&eacute;s et Non-Factur&eacute;</th>
+    </tr><tr>
+    <th class="soustitre">Nom</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date Due</th>
+    <th class="soustitre">Responsable</th>
+    <th class="soustitre">Facturer</th>
+    <th class="soustitre">Purger</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql) or die ('erreur resquest 5');
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		//Convertion des dates au format mysql
+		$dateduetemp = explode(' ',$obj0->tdate_due);
+		$date = $dateduetemp[0];
+		$datetemp = explode('-',$date);
+		$heure = $dateduetemp[1];
+		$jour = $datetemp[0];
+		$mois = $datetemp[1];
+		$annee = $datetemp[2];
+		$date_due_ticket_correct=$annee."-".$mois."-".$jour;
+		$date_due_ticket_final=$date_due_ticket_correct.' '.$heure;
+		$date_day=date('d/m/Y');
+		$date_past=date('d/m/Y', strtotime("- 1 year"));
+		echo '<tr>';
+		echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+		echo '<td class="ok">'.$obj0->cnom.'</td>';
+		echo '<td class="ok">'.$date_due_ticket_final.'</td>';
+		echo '<td class="ok">'.ucfirst($obj0->ulogin).'</td>';
+		echo '<td class="ok">';
+		echo '<form name="formu" method="POST" action="fact.php">';
+		echo '<input type="hidden" id="listeville" name="listeville" value="'.$obj0->tsoc.'">';
+		echo '<input type="hidden" id="date_deb" name="date_deb" value="'.$date_past.'">';
+		echo '<input type="hidden" id="date_fin" name="date_fin" value="'.$date_day.'">';
+		echo '<input type="hidden" id="date_fact" name="date_fact" value="'.$date_day.'">';
+		echo '<input type="submit" name="Submit" value="Facturer" class="fact">';
+		echo '</form>';
+		echo '</td>';
+		echo '<td class="ok">';
+		echo '<a href="javascript:if(confirm(\'Purger le ticket ?\')) document.location.href=\'./include/ajax/purge_ticket.php?num_ticket='.$obj0->trowid.'&location=acceuil\'"><button class="purge">Purger</button></a>';
+		echo '</td>';
+		echo '</tr>';
+	}	
+	?>
+	</table>
+	<?php
+}
+//Affichage du widget Ticket - Mes Taches du Jour // Date due = today
+if ($widget_task_day == '1') {
+	$sql="SELECT t.rowid as trowid, t.name as tname, t.date_due as tdate_due, c.nom as cnom, ti.name as tiname, t.type as ttype, ti.rowid as tirowid, t.state as tstate";
+	$sql.=" FROM ".$tblpref."task as t";
+	$sql.=" LEFT JOIN ".$tblpref."ticket as ti ON ti.rowid=t.ticket_num";
+	$sql.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=ti.soc";
+	$sql.=" WHERE t.user_intervenant='".$num_user."' AND t.state='0' AND (TO_DAYS(NOW()) - TO_DAYS(t.date_due) <= 0) AND (TO_DAYS(NOW()) - TO_DAYS(t.date_due) >= -1)";
+	$sql.=" ORDER BY t.date_due ASC";
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='5'>Mes T&acirc;che(s) du jour</th>
+    </tr><tr>
+    <th class="soustitre">Nom</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date Due</th>
+    <th class="soustitre">Type</th>
+    <th class="soustitre">Ticket</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql) or die ('erreur resquest 6');
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		//Convertion des dates au format mysql
+		$dateduetemp = explode(' ',$obj0->tdate_due);
+		$date = $dateduetemp[0];
+		$datetemp = explode('-',$date);
+		$heure = $dateduetemp[1];
+		$jour = $datetemp[0];
+		$mois = $datetemp[1];
+		$annee = $datetemp[2];
+		$date_due_ticket_correct=$annee."-".$mois."-".$jour;
+		$date_due_ticket_final=$date_due_ticket_correct.' '.$heure;
+		echo '<tr>';
+		echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->trowid.'">'.stripslashes($obj0->tname).'</a></td>';
+		echo '<td class="ok">'.$obj0->cnom.'</td>';
+		echo '<td class="ok">'.$date_due_ticket_final.'</td>';
+		echo '<td class="ok">'.$obj0->ttype.'</td>';
+		echo '<td class="ok"><a class="link" href="./ticket.php?num_ticket='.$obj0->tirowid.'">'.$obj0->tiname.'</a></td>';
+		echo '</tr>';
+	}	
+	?>
+	</table>
+    
+	<?php
+}
+
+//Affichage du widget Commande non livrées
+if ($widget_commande == '1') {
+	//Requête permettant de récupérer les ID des commandes, dont au moins un article n'est pas présent dans les bon de commande.
+	$sql ="SELECT cb.bon_num as cbbonnum";
+	$sql.=" FROM ".$tblpref."cont_bon AS cb";
+	$sql.=" WHERE NOT EXISTS (SELECT * FROM ".$tblpref."cont_bl AS cbl WHERE cbl.num_cont_bon = cb.num)";
+	$sql.=" GROUP BY cb.bon_num";
+	$sql.=" ORDER BY cb.bon_num ASC"
+	?>
+    <table class='widget'>
+    <tr>
+    <th class="titre" colspan='5'>Bons de commandes non-enti&egrave;rement livr&eacute;s</th>
+    </tr><tr>
+    <th class="soustitre">Num. BC</th>
+    <th class="soustitre">Client</th>
+    <th class="soustitre">Date</th>
+    <th class="soustitre">Montant (HT)</th>
+    </tr>
+    <?php
+	$resql0=mysql_query($sql)  or die ('erreur resquest 7 :'.$sql);
+	while ($obj0 = mysql_fetch_object($resql0))
+	{
+		$num_bon=$obj0->cbbonnum;
+		$sql_bon='';
+		//Récupération des informations du bon
+		$sql_bon.="SELECT c.nom as cnom, bc.date as bcdate, bc.tot_htva as tot, bc.num_bon as num_bon";
+		$sql_bon.=" FROM ".$tblpref."bon_comm as bc";
+		$sql_bon.=" LEFT JOIN ".$tblpref."client as c ON c.num_client=bc.client_num";
+		$sql_bon.=" WHERE bc.num_bon=".$num_bon." AND EXISTS (SELECT * FROM gestdev_bl AS bl WHERE bl.bon_num = bc.num_bon)";
+		$req_bon=mysql_query($sql_bon);		
+		while ($obj_bon=mysql_fetch_object($req_bon)) {
+			echo '<tr>';
+			echo '<td class="ok">'.$obj_bon->num_bon.'</td>'; 		//N° Bon
+			echo '<td class="ok">'.$obj_bon->cnom.'</td>';			//Nom Client
+			echo '<td class="ok">'.$obj_bon->bcdate.'</td>';		//Date du bon
+			echo '<td class="ok">'.$obj_bon->tot.' &euro;</td>';	//Total Bon
+			echo '</tr>';
+		}
+		//echo '<tr><td>'.$obj0->cbbonnum.'</td><td>'.$sql_bon.'</td></tr>';
+	}	
+	?>
+	</table>
+    
+	<?php
+}
+//Ferme le <body> + <html> & inclusions de JS
+include_once("include/elements/footer.php");
+?>
